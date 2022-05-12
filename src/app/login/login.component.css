@@ -9,6 +9,7 @@ body {
     margin:0; padding:0;
   }
   .login {
+    background-color: #000;
     margin:0 auto;
     max-width:500px;
   }
@@ -17,9 +18,7 @@ body {
     text-align:center;
     font-size:300%;
   }
-  /* .login-header h1 {
-     text-shadow: 0px 5px 15px #000; */
-  
+    
   .login-form {
     border:.5px solid #fff;
     background:#4facff;
@@ -62,7 +61,7 @@ body {
     cursor:pointer;
   }
   .sign-up{
-    color:#f2f2f2;
+    color:#000;
     margin-left:-70%;
     cursor:pointer;
     text-decoration:underline;
