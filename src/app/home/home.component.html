@@ -1,1 +1,9 @@
-<p>home works!</p>
+
+<div class="container">
+    <div class="row">
+        <img src="assets/logo.PNG" class="col-4" style="width: 9%;">
+        <input type="text" class="col-4" [(ngModel)]="valorIntroducido" (keypress)="buscador()" (drop)="buscador()">
+        <button class="col-4">iniciar sesion</button>
+        <div class="col-4" *ngFor="let item of listaFiltrada">{{item}}</div>
+    </div>
+</div>

@@ -1,8 +1,8 @@
 <link href='https://fonts.googleapis.com/css?family=Ubuntu:500' rel='stylesheet' type='text/css'>
-<form novalidate [formGroup]="formLogin">
+<form novalidate [formGroup]="formRegister">
 <div class="login">
   <div class="login-header">
-    <h1>Login</h1>
+    <h1>Register</h1>
   </div>
   <div class="login-form">
     <h3>Username:</h3>
@@ -10,14 +10,12 @@
     <h3>Password:</h3>
     <input type="password" placeholder="Password" formControlName="password"/>
     <br>
-    <input type="button" (click)="login()" value="Login" class="login-button"/>
+    <input type="button" (click)="register()" value="Register" class="login-button"/>
     <br>
-    <a class="sign-up">Registrate</a>
     <br>
-    <h6 class="no-access">¿No puedes acceder a tu cuenta?</h6>
   </div>
 </div>
 <div class="error-page">
-  <div class="try-again">Error ¡Intentalo entalo de nuevo!</div>
+  <!-- <div class="try-again">Error ¡Intentalo entalo de nuevo!</div> -->
 </div>
 </form>
