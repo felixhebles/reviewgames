@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Videojuego } from '../models/videojuego';
+import { RequestService } from '../service/request.service';
 
 @Component({
   selector: 'app-home',
@@ -7,42 +9,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  lista:string[]=["hola","que","tal","estas"];
+  lista:Videojuego[]=[];
 
-  listaFiltrada:string[]=["hola","que","tal","estas"];
+  listaFiltrada:Videojuego[]=[];
 
   valorIntroducido: string = "";
 
-  constructor() { }
+  selected: boolean = false;
+
+  videojuegoSelected!: Videojuego;
+
+  constructor(private request: RequestService) { }
 
   ngOnInit(): void {
+    this.request.obtenerVideojuegos().subscribe( v => {
+      this.lista = v;
+      this.listaFiltrada = v;
+    });
   }
 
   buscador() {
     setTimeout(() => {
+      this.listaFiltrada = [];
+      this.lista.forEach(el => {
 
-    this.listaFiltrada = [];
-    this.lista.forEach(el => {
-      for (let index = 0; index < el.length; index++) {
-        const element = el[index];
-        for (let i = 0; i < this.valorIntroducido.length; i++) {
-          const va = this.valorIntroducido[i];
-          
-          if (element === va) {
-            let find = false;
-            this.listaFiltrada.forEach(fil => {
-              if (fil === el) {
-                find = true;
-              }
-            });
-            if (!find) {
-              this.listaFiltrada.push(el);
-            }
-          }
+        if (el.nombre.toLowerCase().includes(this.valorIntroducido.toLowerCase())) {
+          this.listaFiltrada.push(el);
         }
 
-      }
-    });
+      });
     });
     
   }

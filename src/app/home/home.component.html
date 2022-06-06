@@ -1,9 +1,22 @@
 
 <div class="container">
-    <div class="row">
+    <div *ngIf="!selected" class="row">
         <img src="assets/logo.PNG" class="col-4" style="width: 9%;">
-        <input type="text" class="col-4" [(ngModel)]="valorIntroducido" (keypress)="buscador()" (drop)="buscador()">
+        <input type="text" class="col-4" [(ngModel)]="valorIntroducido" (ngModelChange)="buscador()">
         <button class="col-4">iniciar sesion</button>
-        <div class="col-4" *ngFor="let item of listaFiltrada">{{item}}</div>
+        <div class="col-4" *ngFor="let item of listaFiltrada">
+            <div (click)="this.videojuegoSelected = item; selected = true;">{{item.nombre}}</div>
+        </div>
+        
+    </div>
+
+    <div *ngIf="selected">
+        <button (click)="selected = false">Volver</button>
+        <h1>{{this.videojuegoSelected.nombre}}</h1>
+        <div class="row w100">
+            <div class="col-3">{{this.videojuegoSelected.descripcion}}</div>
+            <img src="{{this.videojuegoSelected.imagen}}" class="col-9">
+        </div>
+        <div>Plataformas: {{this.videojuegoSelected.plataforma}}</div>
     </div>
 </div>

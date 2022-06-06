@@ -8,6 +8,8 @@ import { RouterRoutingModule } from './router-routing.module';
 import { HomeComponent } from './home/home.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
+import { RequestService } from './service/request.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -21,9 +23,10 @@ import { RegisterComponent } from './register/register.component';
     BrowserModule,
     RouterRoutingModule,
     ReactiveFormsModule,
+    HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [RequestService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
