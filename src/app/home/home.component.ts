@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Videojuego } from '../models/videojuego';
 import { RequestService } from '../service/request.service';
 
@@ -19,12 +20,19 @@ export class HomeComponent implements OnInit {
 
   videojuegoSelected!: Videojuego;
 
-  constructor(private request: RequestService) { }
+  usuario: string | null = null;
+
+  constructor(private request: RequestService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.request.obtenerVideojuegos().subscribe( v => {
       this.lista = v;
       this.listaFiltrada = v;
+    });
+
+    setTimeout(() => {
+      this.usuario = localStorage.getItem('usuario');
     });
   }
 
@@ -40,5 +48,14 @@ export class HomeComponent implements OnInit {
       });
     });
     
+  }
+
+  iniciarSesion() {
+    this.router.navigate(['/login']);
+  }
+
+  cerrarSesion() {
+    localStorage.removeItem('usuario');
+    this.usuario = null;
   }
 }

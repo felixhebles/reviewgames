@@ -6,15 +6,15 @@
   </div>
   <div class="login-form">
     <h3>Username:</h3>
-    <input type="text" placeholder="Username" formControlName="username"/><br>
+    <input type="text" class="form-control" placeholder="Username" formControlName="username"/><br>
     <h3>Password:</h3>
-    <input type="password" placeholder="Password" formControlName="password"/>
+    <input type="password" class="form-control" placeholder="Password" formControlName="password"/>
     <br>
     <input type="button" (click)="login()" value="Login" class="login-button"/>
     <br>
-    <a class="sign-up">Registrate</a>
+    <a class="sign-up" (click)="register()">Registrate</a>
     <br>
-    <h6 class="no-access">¿No puedes acceder a tu cuenta?</h6>
+    <!-- <h6 class="no-access">¿No puedes acceder a tu cuenta?</h6> -->
   </div>
 </div>
 <div class="error-page">

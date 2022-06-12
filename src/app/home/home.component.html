@@ -1,10 +1,19 @@
 
 <div class="container">
-    <div *ngIf="!selected" class="row">
-        <img src="assets/logo.PNG" class="col-4" style="width: 9%;">
-        <input type="text" class="col-4" [(ngModel)]="valorIntroducido" (ngModelChange)="buscador()">
-        <button class="col-4">iniciar sesion</button>
-        <div class="col-4" *ngFor="let item of listaFiltrada">
+    <div *ngIf="!selected" class="row mt-3">
+        <div class="col-4">
+            <img src="assets/logo.PNG" style="width: 20%;">
+        </div>
+        <div class="col-4">
+            <h1>Review Games</h1>
+        </div>
+        <div class="col-4 mt-2">
+            <button *ngIf="!usuario" (click)="iniciarSesion()">Iniciar sesion</button>
+            <h4 *ngIf="usuario">Hola, {{usuario}}</h4>
+            <button *ngIf="usuario" (click)="cerrarSesion()">Cerrar sesion</button>
+        </div>
+        <input type="text" placeholder="Botón de búsqueda" class="col-12 mt-2" [(ngModel)]="valorIntroducido" (ngModelChange)="buscador()">
+        <div class="col-4 mt-3" *ngFor="let item of listaFiltrada">
             <div (click)="this.videojuegoSelected = item; selected = true;">{{item.nombre}}</div>
         </div>
         
@@ -14,8 +23,8 @@
         <button (click)="selected = false">Volver</button>
         <h1>{{this.videojuegoSelected.nombre}}</h1>
         <div class="row w100">
-            <div class="col-3">{{this.videojuegoSelected.descripcion}}</div>
-            <img src="{{this.videojuegoSelected.imagen}}" class="col-9">
+            <div class="col-6">{{this.videojuegoSelected.descripcion}}</div>
+            <img src="{{this.videojuegoSelected.imagen}}" class="col-6">
         </div>
         <div>Plataformas: {{this.videojuegoSelected.plataforma}}</div>
     </div>

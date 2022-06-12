@@ -1,6 +1,8 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { RequestService } from '../service/request.service';
 
 
 @Component({
@@ -11,12 +13,14 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   formLogin = new FormGroup({
-    username: new FormControl(null),
-    password: new FormControl(null),
+    username: new FormControl(null, [Validators.required]),
+    password: new FormControl(null, [Validators.required]),
   });
 
 
-  constructor(@Inject(DOCUMENT) private document: Document) { }
+  constructor(@Inject(DOCUMENT) private document: Document,
+  private request: RequestService,
+  private router: Router) { }
 
 
   ngOnInit(): void {
@@ -24,7 +28,28 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log(this.formLogin.get('username')?.value);
-    console.log(this.formLogin.get('password')?.value);
+  //   this.request.login(this.formLogin.get('username')?.value).subscribe({
+  //     next: (v) => {
+  //       console.log('next', v);
+  //     },
+  //     error: (e) => {
+  //       console.log('error', e);
+  //     }
+  // });
+
+  this.request.login(this.formLogin.get('username')?.value, this.formLogin.get('password')?.value).subscribe(
+    {
+      next: (res) => {
+        localStorage.setItem('usuario', res.usuario);
+        this.router.navigate(['/home']);
+      },
+      error: (err) => {
+        this.formLogin.markAllAsTouched();
+      }
+   });
+  }
+
+  register() {
+    this.router.navigate(['/register']);
   }
 }
