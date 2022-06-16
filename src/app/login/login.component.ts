@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
     password: new FormControl(null, [Validators.required]),
   });
 
+  registrado: boolean | null = false;
 
   constructor(@Inject(DOCUMENT) private document: Document,
   private request: RequestService,
@@ -28,23 +29,18 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-  //   this.request.login(this.formLogin.get('username')?.value).subscribe({
-  //     next: (v) => {
-  //       console.log('next', v);
-  //     },
-  //     error: (e) => {
-  //       console.log('error', e);
-  //     }
-  // });
 
   this.request.login(this.formLogin.get('username')?.value, this.formLogin.get('password')?.value).subscribe(
     {
       next: (res) => {
         localStorage.setItem('usuario', res.usuario);
+        localStorage.setItem('idUsuario', `${res.idUsuario}`);
         this.router.navigate(['/home']);
+        this.registrado = false;
       },
       error: (err) => {
-        this.formLogin.markAllAsTouched();
+        console.log('vegeta');
+        this.registrado = true;
       }
    });
   }

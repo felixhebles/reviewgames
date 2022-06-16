@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { RequestService } from '../service/request.service';
 
 @Component({
@@ -17,7 +18,8 @@ export class RegisterComponent implements OnInit {
 
 
   constructor(@Inject(DOCUMENT) private document: Document,
-  private request: RequestService) { }
+  private request: RequestService,
+  private router: Router) { }
  
 
   ngOnInit(): void {
@@ -30,7 +32,18 @@ export class RegisterComponent implements OnInit {
         usuario: this.formRegister.get('username')?.value
       }
       this.request.createUser(this.formRegister.get('password')?.value,
-        this.formRegister.get('username')?.value).subscribe();
+        this.formRegister.get('username')?.value).subscribe( v => {
+          this.request.login(this.formRegister.get('username')?.value, this.formRegister.get('password')?.value).subscribe(
+            {
+              next: (res) => {
+                localStorage.setItem('usuario', res.usuario);
+                localStorage.setItem('idUsuario', `${res.idUsuario}`);
+                this.router.navigate(['/home']);
+              },
+              error: (err) => {
+              }
+           });
+        });
     }
 
   }

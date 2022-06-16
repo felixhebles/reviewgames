@@ -9,7 +9,6 @@ import { Usuario } from '../models/Usuario';
 @Injectable()
 export class RequestService implements OnInit {
 
-
   payload: any;
   isLoading = true;
 
@@ -18,11 +17,6 @@ export class RequestService implements OnInit {
   ) { }
 
   ngOnInit() {
-  }
-
-  obtenerVideojuegos(): Observable<Videojuego[]> {
-
-      return this.httpClient.get<Videojuego[]>('http://localhost:8080/videojuego/getVideojuegos');
   }
 
   createUser(password: string, usuario: string): Observable<any> {
@@ -52,20 +46,48 @@ export class RequestService implements OnInit {
   }
 
 
+  obtenerComentarios(idVideojuego: Number) {
+    const formData  = new FormData();
+    formData.append('idVideojuego', `${idVideojuego}`);
 
-  // login(username: string) {
-  //   const formData  = new FormData();
-  //   formData.append('usuario', username);
-  //   fetch(
-  //     'http://localhost:8080/usuario/login',
-  //     {
-  //       body: formData,
-  //       method: 'POST',
-  //       mode: 'no-cors'
-  //     }
-  //   ).then(response => console.log(response))
-  //   .catch(error => console.error(error))
-  // }
+    return this.httpClient.post<any[]>('http://localhost:8080/comentario/getComentario', formData);
+  }
 
+  createComentarios(comentario: any) {
+    const formData  = new FormData();
+    formData.append('descripcion', `${comentario.descripcion}`);
+    formData.append('idUsuario', `${comentario.idUsuario}`);
+    formData.append('idVideojuego', `${comentario.idVideojuego}`);
+
+    return this.httpClient.post<any>('http://localhost:8080/comentario/createComentario', formData);
+  }
+
+  deleteComentario(comentario: any) {
+    const formData  = new FormData();
+    formData.append('idComentario', `${comentario.idComentario}`);
+
+    return this.httpClient.post<any>('http://localhost:8080/comentario/deleteComentario', formData);
+  }
+
+  obtenerVideojuegos(): Observable<Videojuego[]> {
+
+    return this.httpClient.get<Videojuego[]>('http://localhost:8080/videojuego/getVideojuegos');
+}
+
+  obtenerVotos(idVideojuego: Number) {
+    const formData  = new FormData();
+    formData.append('idVideojuego', `${idVideojuego}`);
+
+    return this.httpClient.post<any>('http://localhost:8080/votacion/getVotacion', formData);
+  }
+
+  createVotos(votacion: any) {
+    const formData  = new FormData();
+    formData.append('votacion', `${votacion.votacion}`);
+    formData.append('idUsuario', `${votacion.idUsuario}`);
+    formData.append('idVideojuego', `${votacion.idVideojuego}`);
+
+    return this.httpClient.post<any>('http://localhost:8080/votacion/addVotacion', formData);
+  }
 }
 
