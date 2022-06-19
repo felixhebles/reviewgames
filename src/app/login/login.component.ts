@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
 
   }
 
+  //Método que se encarga de la funcionalidad del login.
   login() {
 
   this.request.login(this.formLogin.get('username')?.value, this.formLogin.get('password')?.value).subscribe(
@@ -45,6 +46,7 @@ export class LoginComponent implements OnInit {
    });
   }
 
+  //Redirecciona al registro.
   register() {
     this.router.navigate(['/register']);
   }

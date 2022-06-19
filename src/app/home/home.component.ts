@@ -48,6 +48,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  //Se encarga de la barra buscadora de videojuegos.
   buscador() {
     setTimeout(() => {
       this.listaFiltrada = [];
@@ -72,6 +73,7 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  //Opción que se encarga de cerrar la sesión del usuario.
   cerrarSesion() {
     localStorage.removeItem('usuario');
     localStorage.removeItem('idUsuario');
@@ -79,6 +81,7 @@ export class HomeComponent implements OnInit {
     this.idUsuario = null;
   }
 
+  //Se encarga de seleccionar el videojuego
   videojuegoSeleccionado(item: Videojuego) {
     this.voto = 0;
     this.request.obtenerComentarios(item.idVideojuego).subscribe( v => {
@@ -97,6 +100,7 @@ export class HomeComponent implements OnInit {
 
   }
 
+  //Opción de eliminar comentario
   eliminarComentario(item: any) {
     if (this.videojuegoSelected && this.usuario) {
       let comentario = <any>{};
@@ -110,6 +114,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  //Con este método creamos un comentario dentro de la página del videojuego
   createComentario(){
 
     if (this.videojuegoSelected && this.usuario && this.comentario && this.comentario !== '') {
@@ -127,6 +132,8 @@ export class HomeComponent implements OnInit {
     }
   }
 
+
+  //Contador de votaciones de la página del videojuego.
   votacion(votos: number) {
     let votacion = <any>{};
     votacion.idUsuario = this.idUsuario;

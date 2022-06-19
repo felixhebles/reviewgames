@@ -25,6 +25,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  //Método que se encarga de la funcionalidad de registro.
   register(){
     if (this.formRegister.get('username')?.value && this.formRegister.get('password')?.value) {
       const usuario = {
